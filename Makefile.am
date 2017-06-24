@@ -90,6 +90,7 @@ EXTRA_DIST = \
 	rpm/libstrophe.spec \
 	src/tls_gnutls.c \
 	src/tls_schannel.c \
+	src/tls_securetransport.c \
 	tests/res_query_dump.c
 
 ## Examples
