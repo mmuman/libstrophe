@@ -118,6 +118,17 @@ tls_t *tls_new(xmpp_conn_t *conn)
         if (tls->ssl_ctx == NULL)
             goto err;
 
+        ret = SSL_CTX_set_default_verify_paths(tls->ssl_ctx);
+        if (ret == 0) {
+            /*
+             * Returns 1 on success and 0 on failure. A missing default
+             * location is still treated as a success.
+             */
+            xmpp_error(tls->ctx, "tls",
+                       "SSL_CTX_set_default_verify_paths() failed");
+            goto err_free_ctx;
+        }
+
         /* Enable bug workarounds. */
         SSL_CTX_set_options(tls->ssl_ctx, SSL_OP_ALL);
 
